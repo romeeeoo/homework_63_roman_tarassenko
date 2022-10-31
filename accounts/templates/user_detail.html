@@ -19,4 +19,6 @@
     <p>{{ user_obj.first_name }} {{ user_obj.last_name }} </p>
     <p>{{ user_obj.birth_date|date:'d.m.Y' }}</p>
      <p>{{ user_obj.email }} </p>
+    <h2 class="text-center clear">Your posts:</h2>
+    {% include 'partial/posts.html' %}
 {% endblock %}

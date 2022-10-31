@@ -11,8 +11,6 @@ class PostIndexView(ListView):
     model = Post
     context_object_name = "posts"
 
-
-
 class CreatePostView(CreateView):
     model = Post
     template_name = "form_post.html"

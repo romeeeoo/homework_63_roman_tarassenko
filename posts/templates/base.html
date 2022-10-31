@@ -21,13 +21,13 @@
             {% endblock %}
             {% if user.is_authenticated %}
                 <li>
-                <a href="#"> View Profile</a>
+                    <a href="{% url "account" user.pk %}"> View Profile</a>
                 </li>
                 <li>
-                    <a href="#">Add Post</a>
+                    <a href="{% url "add_post" %}">Add Post</a>
                 </li>
                 <li>
-                     <span> Здравствуйте {{ user.username }}</span>
+                    <span> Здравствуйте {{ user.username }}</span>
                 </li>
 
                 <li class="auth">
