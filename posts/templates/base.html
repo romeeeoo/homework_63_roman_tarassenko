@@ -1,0 +1,52 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Blog {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="container">
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+
+            {% block menu %}
+
+            {% endblock %}
+            {% if user.is_authenticated %}
+                <li>
+                <a href="#"> View Profile</a>
+                </li>
+                <li>
+                    <a href="#">Add Post</a>
+                </li>
+                <li>
+                     <span> Здравствуйте {{ user.username }}</span>
+                </li>
+
+                <li class="auth">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Выйти">
+                    </form>
+                </li>
+            {% else %}
+                <li class="auth"><a href="{% url 'login' %}">Вход</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    {% block content %}
+
+    {% endblock %}
+</div>
+</body>
+</html>
