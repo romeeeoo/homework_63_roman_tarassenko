@@ -6,7 +6,7 @@
     <div class="mt-4">{% include 'partial/simple_search.html' %}</div>
     <h1>Accounts</h1>
     {% for account in accounts %}
-        <p><a href="#">{{account.username}}</a></p>
+        <p><a href="{% url "account" account.pk %}">{{account.username}}</a></p>
     {% empty %}
         <p class="not-found">No tasks found</p>
     {% endfor %}

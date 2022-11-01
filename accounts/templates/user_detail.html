@@ -18,7 +18,13 @@
     <p>{{ user_obj.username }}</p>
     <p>{{ user_obj.first_name }} {{ user_obj.last_name }} </p>
     <p>{{ user_obj.birth_date|date:'d.m.Y' }}</p>
-     <p>{{ user_obj.email }} </p>
+    <p>{{ user_obj.email }} </p>
+    {% if user_obj != user %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="button" class="btn btn-primary" value="Subscribe">
+    </form>
+    {% endif %}
     <h2 class="text-center clear">Your posts:</h2>
     {% include 'partial/posts.html' %}
 {% endblock %}

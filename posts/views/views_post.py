@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.views import View
 from django.views.generic import CreateView, ListView
 
 from posts.forms import PostForm
@@ -10,6 +11,7 @@ class PostIndexView(ListView):
     template_name = "index.html"
     model = Post
     context_object_name = "posts"
+
 
 class CreatePostView(CreateView):
     model = Post
@@ -32,10 +34,13 @@ class CreatePostView(CreateView):
         return reverse("index")
 
 
-
-
-
-
-
-
+class LikePostView(View):
+    def post(self, request, *args, **kwargs):
+        post_id = int(request.POST.get("pk"))
+        post = Post.objects.filter(pk=post_id)
+        print(post)
+        account = request.user
+        print(account)
+        Post.user_likes.create(post=post, account=account)
+        return redirect('index')
 

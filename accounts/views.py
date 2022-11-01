@@ -3,7 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import urlencode
-from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
+
+from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView, FormView
 
 from accounts.forms import LoginForm, CustomUserCreationForm, UserChangeForm, InstaSearchForm
 from accounts.models import Account
@@ -67,6 +68,14 @@ class ProfileView(LoginRequiredMixin, DetailView):
         kwargs["posts"] = posts
         return super().get_context_data(**kwargs)
 
+    def post(self, request, *args, **kwargs):
+        account_id = int(request.POST.get("pk"))
+        print(account_id)
+        user = request.user
+        Account.subscriptions.create(to_account=account_id, from_account=user)
+        return redirect('index')
+
+
 class UserChangeView(UpdateView):
     model = get_user_model()
     form_class = UserChangeForm
@@ -111,12 +120,4 @@ class AccountsListView(ListView):
         if self.form.is_valid():
             return self.form.cleaned_data['search']
         return None
-
-
-
-
-
-
-
-
 
