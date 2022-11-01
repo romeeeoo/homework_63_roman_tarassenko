@@ -38,6 +38,7 @@
                     <form action="" method="POST">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-primary" value="Subscribe">
+                        <input type="hidden" id="cust_id" name="cust_id" value="{{ user_obj.id }}">
                     </form>
                 {% else %}
                     <div class="row mt-2">

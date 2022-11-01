@@ -69,10 +69,10 @@ class ProfileView(LoginRequiredMixin, DetailView):
         return super().get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
-        account_id = int(request.POST.get("pk"))
-        print(account_id)
+        account_id = request.POST.get("cust_id")
+        account = Account.objects.get(pk=account_id)
         user = request.user
-        Account.subscriptions.create(to_account=account_id, from_account=user)
+        account.subscriptions.add(user)
         return redirect('index')
 
 
