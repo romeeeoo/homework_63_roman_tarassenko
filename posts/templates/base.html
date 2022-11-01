@@ -3,50 +3,50 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% bootstrap_messages %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} Blog {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
-<nav class="navbar">
-    <div class="container">
-        <ul class="menu">
-            <li><a href="#">Home</a></li>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url "index" %}">
+        <img src="{% static "img/instagram_logo.png" %}" alt="profile" width="100">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
             {% block menu %}
-
             {% endblock %}
             {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url "account" user.pk %}"> View Profile</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url "account" user.pk %}">
+                        <img src="{% static "img/user.png" %}" alt="profile" width="40">
+                    </a>
                 </li>
-                <li>
-                    <a href="{% url "add_post" %}">Add Post</a>
-                </li>
-                <li>
-                    <span> Здравствуйте {{ user.username }}</span>
-                </li>
-
-                <li class="auth">
-                    <form action="#" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Выйти">
-                    </form>
-                </li>
-            {% else %}
-                <li class="auth"><a href="{% url 'login' %}">Вход</a></li>
             {% endif %}
         </ul>
     </div>
 </nav>
+
+
 <div class="container">
-
     {% block content %}
-
     {% endblock %}
 </div>
+
 </body>
 </html>

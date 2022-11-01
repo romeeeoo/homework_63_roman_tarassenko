@@ -1,0 +1,10 @@
+.avatar {
+    border-radius: 50%;
+    width: 150px;
+    height: auto;
+}
+
+.user_full_name {
+    height: 30pt;
+    font-size: 20pt;
+}
