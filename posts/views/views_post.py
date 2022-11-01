@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView, ListView
@@ -36,11 +36,10 @@ class CreatePostView(CreateView):
 
 class LikePostView(View):
     def post(self, request, *args, **kwargs):
-        post_id = int(request.POST.get("pk"))
-        post = Post.objects.filter(pk=post_id)
+        post = get_object_or_404(Post, pk=kwargs["pk"])
         print(post)
         account = request.user
         print(account)
-        Post.user_likes.create(post=post, account=account)
+        post.user_likes.add(account)
         return redirect('index')
 
